@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllPosts, createPost, deletePost, GetPostID, putpost } from 'db.js';
+import { getAllPosts, createPost, deletePost, GetPostID, putpost } from './db.js';
 import cors from 'cors';
 
 const app = express();
