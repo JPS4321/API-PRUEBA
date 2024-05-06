@@ -3,11 +3,11 @@ const { Client } = pg;
 
  
 const connectionData = {
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_DATABASE,
-    password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT
+    user: "blog_db_p3hh_user",
+    host: "postgres://blog_db_p3hh_user:huca7Whkwl9g83KPwThvGVLigEkOM7Ry@dpg-cos39e20si5c739okhm0-a.oregon-postgres.render.com/blog_db_p3hh",
+    database: "blog_db_p3hh",
+    password: "huca7Whkwl9g83KPwThvGVLigEkOM7Ry",
+    port: 5432,
 
 }
 
