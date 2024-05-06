@@ -19,24 +19,29 @@ function validateBlogRequest(req, res, next) {
   next();
 }
 
-app.get('/blogs', async (req, res) => {
+app.get('/blogs/:id', async (req, res) => {
   try {
-    const blogs = await getAllPosts();
-    res.json(blogs);
+    const id = req.params.id;
+    const blog = await GetPostID(id);
+    if (blog.length === 0) {  
+      return res.status(404).send('Post not found');
+    }
+    res.json(blog[0]);  
   } catch (e) {
     console.error(e);
     res.status(500).send('Internal Server Error');
   }
 });
 
-app.get('/blogs/:id', async (req, res) => {
+app.put('/blogs/:id', validateBlogRequest, async (req, res) => {
   try {
     const id = req.params.id;
-    const blog = await GetPostID(id);
-    if (blog.length === 0) {
+    const { title, content, image_data } = req.body;
+    const result = await putpost(id, title, content, image_data);
+    if (result.rowCount === 0) {  
       return res.status(404).send('Post not found');
     }
-    res.json(blog);
+    res.send('Post updated successfully');
   } catch (e) {
     console.error(e);
     res.status(500).send('Internal Server Error');
@@ -73,7 +78,7 @@ app.delete('/blogs/:id', async (req, res) => {
   try {
     const id = req.params.id;
     const result = await deletePost(id);
-    if (result.affectedRows === 0) {
+    if (result.rowCount === 0) {  
       return res.status(404).send('Post not found');
     }
     res.send('Post deleted successfully');
@@ -84,5 +89,5 @@ app.delete('/blogs/:id', async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server listening at http://127.0.0.1:${port}`);
+  console.log(`Server listening at http:
 });
