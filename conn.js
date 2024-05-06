@@ -1,6 +1,8 @@
 import pg from 'pg';
 const { Client } = pg;
 
+require('dotenv').config();
+ 
 const connectionData = {
     user: process.env.DB_USER,
     host: process.env.DB_HOST,
@@ -10,6 +12,7 @@ const connectionData = {
 
 }
 
+console.log("Conexión a la base de datos con:", connectionData);
 const client = new Client(connectionData);
 await client.connect();
 
