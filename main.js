@@ -89,5 +89,5 @@ app.delete('/blogs/:id', async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server listening at http:
+  console.log(`Server listening at http://127.0.0.1:${port}`);
 });
