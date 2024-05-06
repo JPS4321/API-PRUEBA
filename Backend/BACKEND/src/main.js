@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
 });
 
 function validateBlogRequest(req, res, next) {
-  const { title, content } = req.body;
+  const { title, content, image_data } = req.body;
   if (!title || !content) {
     return res.status(400).send('Bad Request: Title and content are required.');
   }
