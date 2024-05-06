@@ -19,6 +19,17 @@ function validateBlogRequest(req, res, next) {
   next();
 }
 
+app.get('/blogs', async (req, res) => {
+  try {
+    const blogs = await getAllPosts();  
+    res.json(blogs);  
+  } catch (e) {
+    console.error(e);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+
 app.get('/blogs/:id', async (req, res) => {
   try {
     const id = req.params.id;
@@ -59,20 +70,7 @@ app.post('/blogs', validateBlogRequest, async (req, res) => {
   }
 });
 
-app.put('/blogs/:id', validateBlogRequest, async (req, res) => {
-  try {
-    const id = req.params.id;
-    const { title, content, image_data } = req.body; 
-    const result = await putpost(id, title, content, image_data); 
-    if (result.affectedRows === 0) {
-      return res.status(404).send('Post not found');
-    }
-    res.send('Post updated successfully');
-  } catch (e) {
-    console.error(e);
-    res.status(500).send('Internal Server Error');
-  }
-});
+
 
 app.delete('/blogs/:id', async (req, res) => {
   try {
